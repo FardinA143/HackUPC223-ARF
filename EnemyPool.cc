@@ -77,8 +77,12 @@ int EnemyPool::get_nearest_enemy(pair <int, int> pos) {
     return nearest_enemy;
     }
 
-    void EnemyPool::delete_enemy(int i) {
-        pool.erase(pool.begin() + i);
+    void EnemyPool::delete_enemy() {
+        for (int i = 0; i < pool.size(); i++) {
+            if (pool[i].getVida() <= 0) {
+                pool.erase(pool.begin() + i);
+            }
+        }
     }
 
     int EnemyPool::take_damage(int hit_points, int id) {

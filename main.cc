@@ -11,7 +11,7 @@ int main() {
     // backgroundTexture.loadFromFile("assets/background.jfif");
     // sf::Sprite backgroundSprite(backgroundTexture);
     // backgroundSprite.setPosition(50.f, 50.f); 
-    // window.setFramerateLimit(250);
+    window.setFramerateLimit(24);
     sf::Image backgroundImage;
 backgroundImage.loadFromFile("assets/background.png");
 
@@ -59,7 +59,7 @@ backgroundShape.setTexture(&backgroundTexture);
             if (best != -1) {
                 int life = enemies.take_damage(10, best);
                 if (life <= 0) {
-                    enemies.delete_enemy(best);
+                    enemies.delete_enemy();
                 }
             }
         }

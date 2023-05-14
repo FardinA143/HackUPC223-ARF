@@ -25,6 +25,6 @@ public:
     void draw_enemy(sf::RenderWindow& window);
     int get_nearest_enemy(pair <int, int> pos);
     int take_damage(int hit_points, int id);
-    void delete_enemy(int id);
+    void delete_enemy();
 };
 #endif
