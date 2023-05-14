@@ -43,7 +43,7 @@ public:
     int getVida();
 
     void draw(sf::RenderWindow& window); // Dibuja el sprite del enemigo en la ventana
-
+    pair <int,int> getPos();
 
 };
 #endif

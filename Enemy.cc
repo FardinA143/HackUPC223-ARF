@@ -70,6 +70,10 @@ int Enemy::getVida() {
     return vida;
 }
 
+pair <int, int> Enemy::getPos() {
+    return pos;
+}
+
 void Enemy::draw(sf::RenderWindow &window) {
     window.draw(sprite);
 }

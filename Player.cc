@@ -79,3 +79,7 @@ void Player::draw_position(sf::RenderWindow& window) {
 
     window.draw(text);
     }
+
+pair <int,int> Player::get_position() {
+    return pos;
+}

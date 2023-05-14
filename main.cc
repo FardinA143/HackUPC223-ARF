@@ -54,21 +54,31 @@ backgroundShape.setTexture(&backgroundTexture);
         userPlayer.position_update();
         
        // delta = static_cast<double>( clock.restart().asSeconds());   //Time update 
-
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
+            int best = enemies.get_nearest_enemy(userPlayer.get_position());
+            if (best != -1) {
+                int life = enemies.take_damage(10, best);
+                if (life <= 0) {
+                    enemies.delete_enemy(best);
+                }
+            }
+        }
         //if (delta >= 3.0) delta = 0.0; //Si el tiempo es mayor a 3 segundos, se reinicia el reloj
        //enemies.update(delta);             
         // Borrar la ventana
         window.clear(sf::Color::Black);
 
         window.draw(backgroundShape);
-
+        
         // Dibujar el objeto
         userPlayer.draw(window);
         userPlayer.draw_position(window);
+
         enemies.draw_enemy(window);
         
         // Actualizar la ventana
         window.display();
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) window.close();
     }
 
     return 0;

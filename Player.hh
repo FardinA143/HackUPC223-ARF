@@ -25,6 +25,7 @@ public:
 
     void position_update();
     void draw_position(sf::RenderWindow& window);
+    pair <int,int> get_position();
 };
 
 #endif

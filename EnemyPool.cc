@@ -62,3 +62,26 @@ void EnemyPool::read(sf::Sprite enemySprite) {
 void EnemyPool::draw_enemy(sf::RenderWindow& window) {
     for (auto& enemy : pool) enemy.draw(window);
 }
+
+int EnemyPool::get_nearest_enemy(pair <int, int> pos) {
+    int nearest_enemy;
+    double min = 50;
+    int best = -1;
+    for (int i = 0; i < pool.size(); i++) {
+        double distance = sqrt(pow(pool[i].getPos().first - pos.first, 2) + pow(pool[i].getPos().second - pos.second, 2));
+        if (distance < min ) {
+            min = distance;
+            nearest_enemy = i;
+        }
+    }
+    return nearest_enemy;
+    }
+
+    void EnemyPool::delete_enemy(int i) {
+        pool.erase(pool.begin() + i);
+    }
+
+    int EnemyPool::take_damage(int hit_points, int id) {
+        pool[id].take_damage(hit_points);
+        return pool[id].getVida();
+    }
