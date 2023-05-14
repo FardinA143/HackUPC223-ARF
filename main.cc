@@ -1,30 +1,49 @@
 #include <SFML/Graphics.hpp>
+#include "Player.hh"
 #include "Enemy.hh"
 #include "EnemyPool.hh"
 
 
 int main() {
-    sf::RenderWindow window(sf::VideoMode(1280, 720), "HackRooms");
-   
-    string texturePath = "assets/player.png"; // Cambiar por la ruta correcta
-    sf::Texture enemyTexture;
-    enemyTexture.loadFromFile("enemy.png"); //cambiar .png al bueno
+    sf::RenderWindow window(sf::VideoMode(1366, 768), "HackRooms");
+
+    // sf::Texture backgroundTexture;                         //fondo
+    // backgroundTexture.loadFromFile("assets/background.jfif");
+    // sf::Sprite backgroundSprite(backgroundTexture);
+    // backgroundSprite.setPosition(50.f, 50.f); 
+    // window.setFramerateLimit(250);
+    sf::Image backgroundImage;
+backgroundImage.loadFromFile("assets/background.png");
+
+sf::Texture backgroundTexture;
+backgroundTexture.loadFromImage(backgroundImage);
+
+sf::RectangleShape backgroundShape(sf::Vector2f(window.getSize().x, window.getSize().y));
+backgroundShape.setTexture(&backgroundTexture);
+
+
+    // string texturePath = "assets/player.png"; // Cambiar por la ruta correcta
+   // sf::Texture enemyTexture;
+   // enemyTexture.loadFromFile("assets/enemy.png"); //cambiar .png al bueno
 
     sf::Texture texture;                                //jugador
     texture.loadFromFile("assets/player.png");
-    sf::Sprite shape(texture);
+    sf::Sprite userSprite(texture);
 
-    sf::Texture backgroundTexture;                         //fondo
-    backgroundTexture.loadFromFile("ruta/al/fondo.png");
-    sf::Sprite backgroundSprite(backgroundTexture);
+    Player userPlayer;
 
-    shape.setPosition(100.f, 100.f);
+    userPlayer = Player(100, userSprite);
+
     EnemyPool enemies;
-    enemies.read();
+    sf::Texture enemyTexture;
+    enemyTexture.loadFromFile("assets/enemy.png");
+    sf::Sprite enemySprite(enemyTexture);
+    enemies.read(enemySprite);
 
-    sf::Clock clock;
-    float delta = 0.f;
-
+    //sf::Clock clock;
+   // double delta = 0.0;
+   // int seconds = 0;
+    
     while (window.isOpen()) {
         sf::Event event;
         while (window.pollEvent(event)) {
@@ -32,29 +51,21 @@ int main() {
         }
 
         // Actualizar la posición del objeto
-        if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) || (sf::Keyboard::isKeyPressed(sf::Keyboard::A)))
-            shape.move(-1.f, 0.f);
+        userPlayer.position_update();
         
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::D)) 
-            shape.move(1.f, 0.f);
+       // delta = static_cast<double>( clock.restart().asSeconds());   //Time update 
 
-        if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) || sf::Keyboard::isKeyPressed(sf::Keyboard::W))   
-            shape.move(0.f, -1.f);
-
-        if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) || sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-            shape.move(0.f, 1.f);
-        
-        delta = clock.restart().asSeconds();    //Time update 
-        enemies.update(delta);             
+        //if (delta >= 3.0) delta = 0.0; //Si el tiempo es mayor a 3 segundos, se reinicia el reloj
+       //enemies.update(delta);             
         // Borrar la ventana
-        window.clear(sf::Color::White);
+        window.clear(sf::Color::Black);
 
-        window.draw(backgroundSprite);
+        window.draw(backgroundShape);
 
         // Dibujar el objeto
-        window.draw(shape);
-
-        enemies.draw_enemy();
+        userPlayer.draw(window);
+        userPlayer.draw_position(window);
+        enemies.draw_enemy(window);
         
         // Actualizar la ventana
         window.display();

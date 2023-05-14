@@ -1,5 +1,5 @@
-#ifndef ENEMY_HH
-#define ENEMY_HH
+#ifndef PLAYER_HH
+#define PLAYER_HH
 
 #include <SFML/Graphics.hpp>
 #include <utility>
@@ -17,12 +17,14 @@ public:
     //Constructora 
     Player();
 
-    Player(int vida, int proximidad, const std::string& texturePath);
+    Player(int vida, const sf::Sprite sprite);
 
     void draw(sf::RenderWindow& window); // Dibuja el sprite del enemigo en la ventana
 
     void take_damage(int hit_points);
 
+    void position_update();
+    void draw_position(sf::RenderWindow& window);
 };
 
 #endif

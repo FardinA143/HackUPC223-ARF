@@ -3,21 +3,24 @@
 
 #include <map>
 #include "Enemy.hh"
+#include <cstdlib>
+#include <ctime>
+#include <SFML/Graphics.hpp>
 class EnemyPool {
 
 private:
-    map<int, Enemy> pool;   // key = EnemyID, value = Enemy object. no necesitamos eficiencia asi que chill xdd
-
+    vector<Enemy> pool;   // key = EnemyID, value = Enemy object. no necesitamos eficiencia asi que chill xdd
+    vector<pair<int, int>> rand_pos_V, rand_pos_H; //posiciones aleatorias
 public:
     EnemyPool();
 
     void clear_enemies();
 
-    void read();
+    void read(sf::Sprite enemySprite);
 
-    void update(float delta);
+    //void update(double delta);
 
-    void draw_enemy();
+    void draw_enemy(sf::RenderWindow& window);
 
 
 };

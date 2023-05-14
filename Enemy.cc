@@ -7,12 +7,14 @@ Enemy::Enemy()
     attacking = false;
 }
 
-Enemy::Enemy(int hp, const std::string &texturePath)
+Enemy::Enemy(sf::Sprite sprite, int hp)
 {
     vida = hp;
-    texture.loadFromFile(texturePath);
-    sprite.setTexture(texture);
+    this->sprite = sprite;
     attacking = false;
+    this->sprite.setOrigin(50, 50);
+    this->sprite.setScale(0.2f, 0.2f);
+
 }
 
 void Enemy::setPosition(float x, float y) {
@@ -29,27 +31,45 @@ void Enemy::take_damage(int hit_points) {
         sprite.setPosition(sf::Vector2f(-1000.0f, -1000.0f)); // sep
 }
 
-void Enemy::move(float x, float y) {
-    pos.first += x;
-    pos.second += y;
-    sprite.setPosition(pos.first, pos.second);
-}
+// void Enemy::move(double seconds) {
+//     if (is_VERT) {
+//         if (sprite.getRotation() == 90) {
+//             sprite.setRotation(0);
+
+//         }
+//         else {
+//             sprite.setRotation(270);
+           
+            
+//         }
+//     }
+        
+    
+//     else {
+//         if (sprite.getRotation() == 90) {
+//             if(seconds == 0.0) sprite.setRotation(180);
+//             pos.first -= 1;
+//             sprite.setPosition(pos.first, pos.second);
+//         }
+//         else {
+//             if(seconds == 0.0) sprite.setRotation(90);
+//             pos.first += 1;
+//             sprite.setPosition(pos.first, pos.second);
+            
+//         }
+//     }
+// }
 
 void Enemy::attack() {
-    player->take_damage(10);    //a mi no me va, solo va con raton? con teclado comote paso video
-} // oye una cosa. El vscode si haces clic derecho sobre una funcion, y le das a peek > peek definition, te abre la seccion del hh correspondiente a la funcion sin que cambies de archivos. tech tip god
-
-void Enemy::update(float deltaTime) {
-    if (!attacking) {
-        pos.first += 10 * deltaTime;               // Mover en la dirección x a la velocidad indicada
-        sprite.setPosition(pos.first, pos.second); // Actualizar la posición del sprite
-    }
+    player.take_damage(10);    
 }
+
+
 
 int Enemy::getVida() {
     return vida;
 }
 
-sf::Sprite Enemy::getSprite() {
-    return sprite;
+void Enemy::draw(sf::RenderWindow &window) {
+    window.draw(sprite);
 }
