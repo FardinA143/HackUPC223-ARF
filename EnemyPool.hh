@@ -12,7 +12,7 @@ class EnemyPool {
 
 private:
     vector<Enemy> pool;   // key = EnemyID, value = Enemy object. no necesitamos eficiencia asi que chill xdd
-    vector<pair<int, int>> rand_pos_V, rand_pos_H; //posiciones aleatorias
+    vector<pair<int, int>> rand_pos_V, rand_pos_H; //random pos
 public:
     EnemyPool();
 
